@@ -10,12 +10,17 @@ public class Map extends JPanel {
     private int panelHeight;
     private int cellHeight;
     private int cellWidth;
+    private SettingsWindow settingsWindow;
 
     public Map(GridLayout gridLayout) {
         setBackground(Color.black);
     }
 
     public Map() {
+    }
+
+    public Map(SettingsWindow settingsWindow) {
+        this.settingsWindow = settingsWindow;
         setBackground(Color.black);
         addMouseListener(new MouseAdapter() {
             @Override
@@ -24,6 +29,38 @@ public class Map extends JPanel {
                 update(e);
             }
         });
+    }
+
+    public int getPanelWidth() {
+        return panelWidth;
+    }
+
+    public void setPanelWidth(int panelWidth) {
+        this.panelWidth = panelWidth;
+    }
+
+    public int getPanelHeight() {
+        return panelHeight;
+    }
+
+    public void setPanelHeight(int panelHeight) {
+        this.panelHeight = panelHeight;
+    }
+
+    public int getCellHeight() {
+        return cellHeight;
+    }
+
+    public void setCellHeight(int cellHeight) {
+        this.cellHeight = cellHeight;
+    }
+
+    public int getCellWidth() {
+        return cellWidth;
+    }
+
+    public void setCellWidth(int cellWidth) {
+        this.cellWidth = cellWidth;
     }
 
     private void update(MouseEvent e) {
@@ -49,15 +86,15 @@ public class Map extends JPanel {
 //        g.drawLine(0, 0, 100,100);
         this.panelWidth = getWidth();
         this.panelHeight = getHeight();
-        this.cellWidth = panelWidth/3;
-        this.cellHeight = panelHeight/3;
+        this.cellWidth = panelWidth/ this.settingsWindow.getFIELD_SIZE();
+        this.cellHeight = panelHeight/ this.settingsWindow.getFIELD_SIZE();
 
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < this.settingsWindow.getFIELD_SIZE(); i++) {
             int y = i * cellHeight;
             g.drawLine(0, y, panelWidth, y);
         }
 
-        for (int k = 0; k < 3; k++) {
+        for (int k = 0; k < this.settingsWindow.getFIELD_SIZE(); k++) {
             int x = k * cellWidth;
             g.drawLine(x,0, x,panelHeight);
         }

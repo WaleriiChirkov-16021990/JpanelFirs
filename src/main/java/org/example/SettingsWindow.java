@@ -12,22 +12,26 @@ public class SettingsWindow extends JFrame {
     private static final int WINDOW_WIDTH = 230;
     private static final int WINDOW_HEIGHT = 350;
 
-    JLabel labelMode = new JLabel("Select your game mode");
-    JRadioButton radioButtonPCMode = new JRadioButton("for PC mode", true);
-    JRadioButton radioButtonHumanMode = new JRadioButton("for human mode");
-    JLabel labelFieldSize = new JLabel("Select your size of the Field");
-    JSlider sliderSizeGameField = new JSlider(3,10,3);
-    JLabel labelWinLength = new JLabel("Select your length of the Win");
-    JSlider sliderWinLength = new JSlider(3,10,3);
-    ButtonGroup buttonGroup = new ButtonGroup();
+    private JLabel labelMode = new JLabel("Select your game mode");
+    private JRadioButton radioButtonPCMode = new JRadioButton("for PC mode", true);
+    private JRadioButton radioButtonHumanMode = new JRadioButton("for human mode");
+    private JLabel labelFieldSize = new JLabel("Select your size of the Field");
+    private JSlider sliderSizeGameField = new JSlider(3,10,3);
+    private JLabel labelWinLength = new JLabel("Select your length of the Win");
+    private JSlider sliderWinLength = new JSlider(3,10,3);
+    private ButtonGroup buttonGroup = new ButtonGroup();
 
-    JPanel gridPropertiesGame = new JPanel(new GridLayout(4,1));
-    JPanel gridPropertiesSize = new JPanel(new GridLayout(2,1));
-    JPanel gridPropertiesMode = new JPanel(new GridLayout(3,1));
+    private JPanel gridPropertiesGame = new JPanel(new GridLayout(4,1));
+    private JPanel gridPropertiesSize = new JPanel(new GridLayout(2,1));
+    private JPanel gridPropertiesMode = new JPanel(new GridLayout(3,1));
 
-    JPanel gridPropertiesWinLength = new JPanel(new GridLayout(2,1));
+    private JPanel gridPropertiesWinLength = new JPanel(new GridLayout(2,1));
 
+    private int FIELD_SIZE = 3;
 
+    public int getFIELD_SIZE() {
+        return FIELD_SIZE;
+    }
 
     JButton startButton = new JButton("Start");
 
@@ -89,6 +93,7 @@ public class SettingsWindow extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 boolean valueMode = radioButtonPCMode.isSelected();
+                FIELD_SIZE = sliderSizeGameField.getValue();
                 gameWindow.startNewGame(valueMode,sliderSizeGameField.getValue(),sliderSizeGameField.getValue(),sliderWinLength.getValue());
                 setVisible(false);
             }
@@ -97,6 +102,111 @@ public class SettingsWindow extends JFrame {
         add(gridPropertiesGame);
 
     }
+
+    public JLabel getLabelMode() {
+        return labelMode;
+    }
+
+    public void setLabelMode(JLabel labelMode) {
+        this.labelMode = labelMode;
+    }
+
+    public JRadioButton getRadioButtonPCMode() {
+        return radioButtonPCMode;
+    }
+
+    public void setRadioButtonPCMode(JRadioButton radioButtonPCMode) {
+        this.radioButtonPCMode = radioButtonPCMode;
+    }
+
+    public JRadioButton getRadioButtonHumanMode() {
+        return radioButtonHumanMode;
+    }
+
+    public void setRadioButtonHumanMode(JRadioButton radioButtonHumanMode) {
+        this.radioButtonHumanMode = radioButtonHumanMode;
+    }
+
+    public JLabel getLabelFieldSize() {
+        return labelFieldSize;
+    }
+
+    public void setLabelFieldSize(JLabel labelFieldSize) {
+        this.labelFieldSize = labelFieldSize;
+    }
+
+    public JSlider getSliderSizeGameField() {
+        return sliderSizeGameField;
+    }
+
+    public void setSliderSizeGameField(JSlider sliderSizeGameField) {
+        this.sliderSizeGameField = sliderSizeGameField;
+    }
+
+    public JLabel getLabelWinLength() {
+        return labelWinLength;
+    }
+
+    public void setLabelWinLength(JLabel labelWinLength) {
+        this.labelWinLength = labelWinLength;
+    }
+
+    public JSlider getSliderWinLength() {
+        return sliderWinLength;
+    }
+
+    public void setSliderWinLength(JSlider sliderWinLength) {
+        this.sliderWinLength = sliderWinLength;
+    }
+
+    public ButtonGroup getButtonGroup() {
+        return buttonGroup;
+    }
+
+    public void setButtonGroup(ButtonGroup buttonGroup) {
+        this.buttonGroup = buttonGroup;
+    }
+
+    public JPanel getGridPropertiesGame() {
+        return gridPropertiesGame;
+    }
+
+    public void setGridPropertiesGame(JPanel gridPropertiesGame) {
+        this.gridPropertiesGame = gridPropertiesGame;
+    }
+
+    public JPanel getGridPropertiesSize() {
+        return gridPropertiesSize;
+    }
+
+    public void setGridPropertiesSize(JPanel gridPropertiesSize) {
+        this.gridPropertiesSize = gridPropertiesSize;
+    }
+
+    public JPanel getGridPropertiesMode() {
+        return gridPropertiesMode;
+    }
+
+    public void setGridPropertiesMode(JPanel gridPropertiesMode) {
+        this.gridPropertiesMode = gridPropertiesMode;
+    }
+
+    public JPanel getGridPropertiesWinLength() {
+        return gridPropertiesWinLength;
+    }
+
+    public void setGridPropertiesWinLength(JPanel gridPropertiesWinLength) {
+        this.gridPropertiesWinLength = gridPropertiesWinLength;
+    }
+
+    public JButton getStartButton() {
+        return startButton;
+    }
+
+    public void setStartButton(JButton startButton) {
+        this.startButton = startButton;
+    }
+
 }
 
 //    Первое задание – добавить на экран компоновщик-сетку с одним столбцом и добавить над существующей кнопкой следующие компоненты в заданном порядке: JLabel с заголовком «Выберите режим игры», сгруппированные в ButtonGroup

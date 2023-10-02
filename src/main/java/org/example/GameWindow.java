@@ -11,11 +11,11 @@ public class GameWindow extends JFrame {
     private static final int WINDOW_POSX = 800;
     private static final int WINDOW_POSY = 300;
 
-    JButton buttonNewGame = new JButton("New Game");
-    JButton buttonExit = new JButton("Exit");
+    private JButton buttonNewGame = new JButton("New Game");
+    private JButton buttonExit = new JButton("Exit");
 
-    Map map;
-    SettingsWindow settingsWindow;
+    private Map map;
+    private SettingsWindow settingsWindow;
 
 
 
@@ -31,9 +31,9 @@ public class GameWindow extends JFrame {
         panelGridSoutch.add(buttonNewGame);
         panelGridSoutch.add(buttonExit);
         add(panelGridSoutch, BorderLayout.SOUTH);
-        map = new Map();
-        add(map);
         settingsWindow = new SettingsWindow(this);
+        map = new Map(this.settingsWindow);
+        add(map);
         setVisible(true);
 //        settingsWindow.setVisible(true);
         buttonExit.addActionListener(new ActionListener() {
@@ -50,6 +50,38 @@ public class GameWindow extends JFrame {
             }
         });
 
+    }
+
+    public JButton getButtonNewGame() {
+        return buttonNewGame;
+    }
+
+    public void setButtonNewGame(JButton buttonNewGame) {
+        this.buttonNewGame = buttonNewGame;
+    }
+
+    public JButton getButtonExit() {
+        return buttonExit;
+    }
+
+    public void setButtonExit(JButton buttonExit) {
+        this.buttonExit = buttonExit;
+    }
+
+    public Map getMap() {
+        return map;
+    }
+
+    public void setMap(Map map) {
+        this.map = map;
+    }
+
+    public SettingsWindow getSettingsWindow() {
+        return settingsWindow;
+    }
+
+    public void setSettingsWindow(SettingsWindow settingsWindow) {
+        this.settingsWindow = settingsWindow;
     }
 
     void startNewGame(boolean mode, int fSzX, int fSzY, int wLength) {
