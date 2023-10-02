@@ -10,6 +10,7 @@ public class Map extends JPanel {
     private int panelHeight;
     private int cellHeight;
     private int cellWidth;
+
     public Map(GridLayout gridLayout) {
         setBackground(Color.black);
     }
@@ -32,8 +33,8 @@ public class Map extends JPanel {
         repaint();
     }
 
-    void startNewGame(int mode, int fSzX, int fSzY, int wLen) {
-        System.out.printf("Mode: %d; \n Size: x=%d y= %d;\n Win Length: %d;", mode, fSzX, fSzY, wLen);
+    void startNewGame(boolean mode, int fSzX, int fSzY, int wLen) {
+        System.out.printf("Mode: %s; \n Size: x=%d y= %d;\n Win Length: %d; \n", mode, fSzX, fSzY, wLen);
         repaint();
     }
 
@@ -61,4 +62,28 @@ public class Map extends JPanel {
             g.drawLine(x,0, x,panelHeight);
         }
     }
+
+//
+//    private boolean checkLine(int x, int y, int vx, int vy, int len, int c) {
+//        final int far_x = x + (len - 1) * vx;
+//        final int far_y = y + (len - 1 ) * vy;
+//        if(!isValidedCell(far_x, far_y)) return false;
+//        for (int i = 0; i < len; i++) {
+//            if(field[y + i * vy][x + i * vx] != c ) return false;
+//        }
+//        return true;
+//    }
+//
+//    private boolean checkWin(int c){
+//        for (int i = 0; i < fieldSizeX; i++) {
+//            for (int j = 0; j < fieldSizeY; j++) {
+//                if (checkLine(i, j, 1,0, winLength,c)) return true;
+//                if (checkLine(i, j, 1,1, winLength,c)) return true;
+//                if (checkLine(i, j, 0,1, winLength,c)) return true;
+//                if (checkLine(i, j, 1,-1, winLength,c)) return true;
+//            }
+//        }
+//        return false;
+//    }
+
 }

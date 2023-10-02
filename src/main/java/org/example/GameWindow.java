@@ -19,6 +19,7 @@ public class GameWindow extends JFrame {
 
 
 
+
     public GameWindow() throws HeadlessException {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocation(WINDOW_POSX,WINDOW_POSY);
@@ -26,10 +27,10 @@ public class GameWindow extends JFrame {
 
         setTitle("TicTacToe");
         setResizable(false);
-        JPanel panel = new JPanel(new GridLayout(1,2));
-        panel.add(buttonNewGame);
-        panel.add(buttonExit);
-        add(panel, BorderLayout.SOUTH);
+        JPanel panelGridSoutch = new JPanel(new GridLayout(1,2));
+        panelGridSoutch.add(buttonNewGame);
+        panelGridSoutch.add(buttonExit);
+        add(panelGridSoutch, BorderLayout.SOUTH);
         map = new Map();
         add(map);
         settingsWindow = new SettingsWindow(this);
@@ -51,7 +52,7 @@ public class GameWindow extends JFrame {
 
     }
 
-    void startNewGame(int mode, int fSzX, int fSzY, int wLength) {
+    void startNewGame(boolean mode, int fSzX, int fSzY, int wLength) {
         map.startNewGame(mode, fSzX, fSzY, wLength);
     }
 
