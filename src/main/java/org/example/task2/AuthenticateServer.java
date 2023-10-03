@@ -2,15 +2,17 @@ package org.example.task2;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyVetoException;
+import java.beans.VetoableChangeListener;
 
 public class AuthenticateServer extends JFrame {
 
-    private final static int WINDOW_WIDTH = 330;
-    private final static int WINDOW_HEIGHT = 190;
-    private static final int WINDOW_POSX = -1660;
-    private static final int WINDOW_POSY = -1200;
+    private static int WINDOW_WIDTH = 330;
+    private static int WINDOW_HEIGHT = 190;
+    private static int WINDOW_POSX = 660;
+    private static int WINDOW_POSY = 200;
     private final JButton okButton;
     private final JButton exitButton;
     private final JPanel panelSouthButtonGroup;
@@ -21,14 +23,12 @@ public class AuthenticateServer extends JFrame {
     private final JTextField textFieldIPAddress;
     private final JTextField textFieldPort;
     private final JLabel labelInfo;
-    private boolean isAuthenticated = false;
-    private final ChatWindow chatWindow;
+    private static boolean isAuthenticated = false;
+//    private final ChatWindow chatWindow;
 
     public AuthenticateServer() throws HeadlessException {
         setBounds(WINDOW_POSX, WINDOW_POSY, WINDOW_WIDTH, WINDOW_HEIGHT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocation(WINDOW_POSX, WINDOW_POSY);
-        setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         setTitle("Authenticate");
         setResizable(false);
         panelSouthButtonGroup = new JPanel(new GridLayout(1,2));
@@ -37,7 +37,7 @@ public class AuthenticateServer extends JFrame {
         panelSouthButtonGroup.add(okButton);
         panelSouthButtonGroup.add(exitButton);
         add(panelSouthButtonGroup,BorderLayout.SOUTH);
-        chatWindow = new ChatWindow();
+//        chatWindow = new ChatWindow();
 
         panelTopAuthenticated = new JPanel(new GridLayout(5,1));
         add(panelTopAuthenticated,BorderLayout.NORTH);
@@ -54,21 +54,25 @@ public class AuthenticateServer extends JFrame {
         panelTopAuthenticated.add(labelInfo);
 
 
-        setVisible(false);
+        setVisible(true);
 
         okButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                      labelInfo.setText("Authentication successful");
                      isAuthenticated = true;
+                     setVisible(false);
+                     new ChatWindow();
             }
         });
+
 
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 labelInfo.setText("Bye bye");
                 setVisible(false);
+                new Program();
             }
         });
     }
@@ -101,7 +105,7 @@ public class AuthenticateServer extends JFrame {
         return labelInfo;
     }
 
-    public boolean isAuthenticated() {
+    public static boolean isAuthenticated() {
         return isAuthenticated;
     }
 
@@ -112,4 +116,28 @@ public class AuthenticateServer extends JFrame {
     public JTextField getTextFieldPort() {
         return textFieldPort;
     }
+
+    public static int getWindowWidth() {
+        return WINDOW_WIDTH;
+    }
+
+    public static int getWindowHeight() {
+        return WINDOW_HEIGHT;
+    }
+
+    public static int getWindowPosx() {
+        return WINDOW_POSX;
+    }
+
+    public static int getWindowPosy() {
+        return WINDOW_POSY;
+    }
+
+    public static boolean isIsAuthenticated() {
+        return isAuthenticated;
+    }
+//
+//    public ChatWindow getChatWindow() {
+//        return chatWindow;
+//    }
 }
