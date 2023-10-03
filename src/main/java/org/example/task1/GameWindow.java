@@ -1,4 +1,7 @@
-package org.example;
+package org.example.task1;
+
+import org.example.task1.Map;
+import org.example.task1.SettingsWindow;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,10 +13,8 @@ public class GameWindow extends JFrame {
     private static final int WINDOW_HEIGHT = 555;
     private static final int WINDOW_POSX = 800;
     private static final int WINDOW_POSY = 300;
-
     private JButton buttonNewGame = new JButton("New Game");
     private JButton buttonExit = new JButton("Exit");
-
     private Map map;
     private SettingsWindow settingsWindow;
 

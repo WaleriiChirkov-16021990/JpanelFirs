@@ -1,4 +1,6 @@
-package org.example;
+package org.example.task1;
+
+import org.example.task1.SettingsWindow;
 
 import javax.swing.*;
 import java.awt.*;
