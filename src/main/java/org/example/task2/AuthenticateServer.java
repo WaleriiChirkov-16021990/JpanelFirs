@@ -62,7 +62,8 @@ public class AuthenticateServer extends JFrame {
                      labelInfo.setText("Authentication successful");
                      isAuthenticated = true;
                      setVisible(false);
-                     new ChatWindow();
+                     getServerConnection();
+//                     new ChatWindow();
             }
         });
 
@@ -75,6 +76,10 @@ public class AuthenticateServer extends JFrame {
                 new Program();
             }
         });
+    }
+
+    private void getServerConnection(){
+        new ChatWindow(this);
     }
 
     public JButton getOkButton() {
