@@ -5,3 +5,7 @@ Enter your Login : ghbdtn
 Enter your Login : gjrf
 Enter your Login : Bye
 Waleriy : Король вернулся, да здраствует Король
+
+Ghost : Java Develipment Kit
+Ghost : Обработал ввод пустого сообщения
+Ghost : Такими темпами горы  свернем

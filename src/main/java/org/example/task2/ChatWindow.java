@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.*;
 
 //Создать окно клиента чата. Окно должно содержать JtextField для ввода логина, пароля, IP-адреса сервера, порта подключения к серверу, область ввода
@@ -12,11 +14,12 @@ import java.io.*;
 //        компоненты, относящиеся к отправке сообщения – на JPanel снизу.
 
 public class ChatWindow extends JFrame {
-    private final static int WINDOW_WIDTH = 600;
-    private final static int WINDOW_HEIGHT = 300;
+    private final static int WINDOW_WIDTH = 800;
+    private final static int WINDOW_HEIGHT = 400;
     private static final int WINDOW_POSX = 600;
     private static final int WINDOW_POSY = 200;
     private final JTextArea jTextAreaMessages;
+    private final JScrollPane jScrollPane;
     private final JButton buttonSave;
     private final JButton buttonLoaded;
     private final JPanel panelFullScreen;
@@ -40,21 +43,22 @@ public class ChatWindow extends JFrame {
         setResizable(false);
         panelFullScreen = new JPanel(new GridLayout(2, 1));
         panelTop = new JPanel(new GridLayout(1, 1));
-        panelBottom = new JPanel(new GridLayout(2, 1));
-        panelAlarmMessage = new JPanel(new GridLayout(2, 2));
+        panelBottom = new JPanel(new GridLayout(3, 1));
+        panelAlarmMessage = new JPanel(new GridLayout(2, 1));
         panelBottomFromAreaText = new JPanel(new GridLayout(1, 2));
         panelBottomFromMessage = new JPanel(new GridLayout(1, 2));
-        jTextAreaMessages = new JTextArea();
+        jTextAreaMessages = new JTextArea(20,1);
+        jScrollPane = new JScrollPane(jTextAreaMessages);
+
         buttonSave = new JButton("Save");
         buttonLoaded = new JButton("Load");
         textFieldMessage = new JTextField();
         buttonSendMessage = new JButton("Send message");
         add(panelFullScreen);
         panelFullScreen.add(panelTop);
-        panelFullScreen.add(panelTop);
         panelFullScreen.add(panelBottom, BorderLayout.SOUTH);
-        panelTop.add(jTextAreaMessages);
-        panelTop.add(panelAlarmMessage);
+        panelTop.add(jScrollPane);
+        panelBottom.add(panelAlarmMessage);
         panelBottomFromAreaText.add(buttonSave);
         panelBottomFromAreaText.add(buttonLoaded);
         panelBottom.add(panelBottomFromAreaText, BorderLayout.SOUTH);
@@ -66,6 +70,8 @@ public class ChatWindow extends JFrame {
         panelAlarmMessage.add(alarmLabel, BorderLayout.WEST);
         loadedHistoryFromFile();
         setVisible(true);
+        panelAlarmMessage.setVisible(false);
+
 
 
         buttonSendMessage.addActionListener(new ActionListener() {
@@ -76,10 +82,50 @@ public class ChatWindow extends JFrame {
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                jTextAreaMessages.append(authenticateServer.getTextFieldLogin().getText() + " : " + textFieldMessage.getText() + "\n");
-                textFieldMessage.setText("");
+                if (textFieldMessage.getText().isEmpty() || (textFieldMessage.getText().isEmpty())){
+                    alarmLabel.setVisible(true);
+                    alarmLabel.setText("Status : Message is empty");
+                    panelAlarmMessage.setVisible(true);
+                } else {
+                    jTextAreaMessages.append(authenticateServer.getTextFieldLogin().getText() + " : " + textFieldMessage.getText() + "\n");
+                    textFieldMessage.setText("");
+                    alarmLabel.setText("Status : Ok");
+                }
             }
         });
+
+        textFieldMessage.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    if (textFieldMessage.getText().isEmpty() || (textFieldMessage.getText().isEmpty())){
+                        alarmLabel.setVisible(true);
+                        alarmLabel.setText("Status : Message is empty");
+                        panelAlarmMessage.setVisible(true);
+                    } else {
+                        jTextAreaMessages.append(authenticateServer.getTextFieldLogin().getText() + " : " + textFieldMessage.getText() + "\n");
+                        textFieldMessage.setText("");
+                        if (alarmLabel.getText().equals("Status : Message is empty")){
+                            alarmLabel.setText("Status : Ok");
+                        } else {
+                            alarmLabel.setText("");
+                            panelAlarmMessage.setVisible(false);
+                        }
+                    }
+                }
+
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+            }
+        });
+
 
         buttonSave.addActionListener(new ActionListener() {
             @Override
@@ -104,11 +150,10 @@ public class ChatWindow extends JFrame {
                 }
             }
         });
-
     }
 
     public boolean writeToHistory() {
-        try (FileWriter fileWriter = new FileWriter(file, true)) {
+        try (FileWriter fileWriter = new FileWriter(file, false)) {
             fileWriter.write(jTextAreaMessages.getText());
             fileWriter.flush();
         } catch (IOException e) {
@@ -128,10 +173,8 @@ public class ChatWindow extends JFrame {
             jTextAreaMessages.setText(stringBuilder.toString());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-//            throw new RuntimeException(e);
             return false;
         } catch (IOException e) {
-//            throw new RuntimeException(e);
             e.printStackTrace();
             return false;
         }

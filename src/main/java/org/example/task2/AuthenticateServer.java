@@ -62,8 +62,11 @@ public class AuthenticateServer extends JFrame {
                      labelInfo.setText("Authentication successful");
                      isAuthenticated = true;
                      setVisible(false);
+                     if (textFieldLogin.getText().equals("")) {
+                         textFieldLogin.setText("Ghost");
+                     }
                      getServerConnection();
-//                     new ChatWindow();
+
             }
         });
 
@@ -76,6 +79,52 @@ public class AuthenticateServer extends JFrame {
                 new Program();
             }
         });
+
+        textFieldLogin.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if(textFieldLogin.getText().equals("Enter your Login")){
+                    textFieldLogin.setText("");
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+            }
+        });
+
+        passwordField.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                passwordField.setText("");
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+
+            }
+        });
+
+        textFieldIPAddress.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if(textFieldIPAddress.getText().equals("Enter IP Address")){
+                    textFieldIPAddress.setText("127.0.0.1");
+                    textFieldPort.setText("8080");
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+
+            }
+        });
+
+
+
+
+
+
     }
 
     private void getServerConnection(){
